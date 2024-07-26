@@ -1,6 +1,5 @@
 
 "use client"
-
 import { ServerWithMembersWithProfiles } from "@/types"
 import { Roles } from "@prisma/client"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu"
@@ -11,6 +10,7 @@ interface ServerHeaderProps {
      server:ServerWithMembersWithProfiles,
      role?:Roles
 }
+
 const ServerHeader = ({
     server,
     role
@@ -29,6 +29,10 @@ const ServerHeader = ({
     const handleManageMember=()=>{
         onOpen.onOpen("members",{server})
     }
+    const handleCreateChannel = () => {
+        onOpen.onOpen("createChannel", { server });
+    }
+    
     
   return (
    <DropdownMenu>
@@ -59,8 +63,9 @@ const ServerHeader = ({
         </DropdownMenuItem>
 
     )}
+    
     { isModerator && (
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={handleCreateChannel}>
            Create Channels
            <Plus className="w-4 h-4 ml-auto"/>
         </DropdownMenuItem>
@@ -86,10 +91,10 @@ const ServerHeader = ({
             <DropdownMenuItem className="text-rose-500">
                 Leave Server
            <LogOut className="w-4 h-4 ml-auto"/>
-
             </DropdownMenuItem>
         )
     }
+
     </DropdownMenuContent>
 
    </DropdownMenu>

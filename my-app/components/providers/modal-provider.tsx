@@ -4,6 +4,7 @@ import { useState,useEffect } from "react";
 import InviteServerModal from "../modals/invite-modal";
 import EditServerModal from "../modals/edit-server";
 import ManageMembers from "../modals/members";
+import CreateChannelModal from "../modals/create-channel-model";
 
 export const ModalProvider=()=>{
     const [isMounted,setIsMounted]=useState(false);
@@ -20,6 +21,7 @@ export const ModalProvider=()=>{
         <InviteServerModal/>
         <EditServerModal/>
         <ManageMembers/>
+        <CreateChannelModal/>
         </>
     )
 }
