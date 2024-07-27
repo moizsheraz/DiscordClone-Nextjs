@@ -5,6 +5,8 @@ import * as z from "zod";
 import axios from "axios";
 import { useModal } from "@/hooks/use-model-store";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useParams } from "next/navigation";
+import qs from "query-string";
 import {
   Dialog,
   DialogContent,
@@ -14,6 +16,12 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectItem,
+  SelectValue,
+  SelectContent, SelectTrigger
+} from "@/components/ui/select"
 import {
   Form,
   FormControl,
@@ -42,6 +50,7 @@ const formSchema = z.object({
 const CreateChannelModal = () => {
     const {isOpen,onClose,type} =useModal();
     const isModalOpen = isOpen && type === "createChannel";
+    const params = useParams();
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -56,7 +65,14 @@ const CreateChannelModal = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     // Here we will create a server logic
     try {
-      await axios.post("/api/server", values);
+      const url = qs.stringifyUrl({
+        url: "/api/channels",
+        query: {
+          serverId : params?.serverId
+        }
+      })
+
+      await axios.post(url, values);
       form.reset();
       router.refresh();
       onClose();
@@ -101,6 +117,28 @@ const CreateChannelModal = () => {
         <FormField 
         name="type"
        render={({field})=>(
+        <FormItem>
+        <FormLabel>Channel Type</FormLabel>
+        <Select
+        disabled={isLoading}
+        onValueChange={field.onChange}
+        defaultValue={field.value}
+        >
+          <FormControl>
+            <SelectTrigger className="bg-zin-300/50 border-0 focus:ring-0 text-white ring-offset-0 focus:ring-offset-0 capitalize outline-none">
+          <SelectValue placeholder="Select a Channel Type" />
+            </SelectTrigger>
+          </FormControl>
+          <SelectContent>
+  {Object.values(ChannelTypes).map((type) => (
+    <SelectItem key={type} value={type} className="capitalize">
+      {type.toLowerCase()}
+    </SelectItem>
+  ))}
+</SelectContent>
+
+        </Select>
+        </FormItem>
         
        )}
 

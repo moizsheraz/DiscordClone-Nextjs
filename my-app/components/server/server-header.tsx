@@ -32,6 +32,9 @@ const ServerHeader = ({
     const handleCreateChannel = () => {
         onOpen.onOpen("createChannel", { server });
     }
+    const handleLeaveServer = () => {
+        onOpen.onOpen("LeaveServer", { server });
+    }
     
     
   return (
@@ -88,7 +91,7 @@ const ServerHeader = ({
     }
     {
         !isAdmin && (
-            <DropdownMenuItem className="text-rose-500">
+            <DropdownMenuItem className="text-rose-500" onClick={handleLeaveServer}>
                 Leave Server
            <LogOut className="w-4 h-4 ml-auto"/>
             </DropdownMenuItem>
