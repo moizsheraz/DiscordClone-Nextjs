@@ -35,6 +35,9 @@ const ServerHeader = ({
     const handleLeaveServer = () => {
         onOpen.onOpen("LeaveServer", { server });
     }
+    const handleDeleteServer = () => {
+        onOpen.onOpen("DeleteServer", { server });
+    }
     
     
   return (
@@ -82,7 +85,7 @@ const ServerHeader = ({
 
     {
         isAdmin && (
-            <DropdownMenuItem className="text-rose-500">
+            <DropdownMenuItem className="text-rose-500" onClick={handleDeleteServer}>
                 Delete Server
            <Trash className="w-4 h-4 ml-auto"/>
 
