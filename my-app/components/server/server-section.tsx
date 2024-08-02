@@ -17,7 +17,7 @@ interface ServerSectionProps{
 const ServerSection = ({label,role,sectionType,channelType,server}:ServerSectionProps) => {
     const onOpen = useModal();
     const handleCreateChannel=()=>{
-        onOpen.onOpen("createChannel",{server})
+        onOpen.onOpen("createChannel",{channelType})
     }
     const handleManageMembers=()=>{
         onOpen.onOpen("members",{server})
@@ -36,7 +36,7 @@ const ServerSection = ({label,role,sectionType,channelType,server}:ServerSection
         )}
 
         {role == Roles.Admin && sectionType == "members" && (
-              <ActionToolTip label="Create Channel">
+              <ActionToolTip label="Manage Members">
               <button className="text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition " onClick={handleManageMembers}>
                   <Settings className="h-4 w-4 "/>
               </button>

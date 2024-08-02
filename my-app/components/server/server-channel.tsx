@@ -1,10 +1,11 @@
 "use client"
 import { Channel, ChannelTypes, Roles, Server } from '@prisma/client'
-import { Hash, Mic, Video } from 'lucide-react'
+import { Edit, Hash, Lock, Mic, Trash, Video } from 'lucide-react'
 import { useParams, useRouter } from 'next/navigation'
 import React from 'react'
 import { Button } from '../ui/button'
 import { cn } from '@/lib/utils'
+import { ActionToolTip } from '../ui/action-tooltip'
 
 interface ServerChannelProps {
 channel:Channel,
@@ -28,7 +29,20 @@ const ServerChannel = ({
   return (
   <Button variant={"destructive"} className={cn(" px-2 py-2 rounded-md flex justify-start  gap-x-2 w-full bg-transparent hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition mb-1")} >
 <Icon className="flex-shrink-0 w-5 h-5 text-zinc-500" />
-<p className={cn(params.channelId === channel.id && "text-purple-700")}>{channel.name}</p>
+<p className={cn(params.channelId === channel.id && "text-purple-700","text-zinc-500 hover:text-zinc-600 dark:text-zinc-400")}>{channel.name}</p>
+{channel.name !== "general" && role != Roles.Guest && (
+    <div className="ml-auto flex items-center gap-x-2">
+        <ActionToolTip label='Edit'>
+    <Edit className=' group-hover:block w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition '/>
+        </ActionToolTip>
+        <ActionToolTip label='Edit'>
+    <Trash className=' group-hover:block w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition '/>
+        </ActionToolTip>
+    </div>
+)}
+{channel.name == "general" && (
+    <Lock className=" w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 ml-auto "/>
+)}
   </Button>
   )
 }

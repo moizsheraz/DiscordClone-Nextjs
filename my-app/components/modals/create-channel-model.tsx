@@ -1,6 +1,7 @@
 "use client";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import * as z from "zod";
 import axios from "axios";
 import { useModal } from "@/hooks/use-model-store";
@@ -48,19 +49,30 @@ const formSchema = z.object({
 
 
 const CreateChannelModal = () => {
-    const {isOpen,onClose,type} =useModal();
+    const {isOpen,onClose,type,data} =useModal();
     const isModalOpen = isOpen && type === "createChannel";
     const params = useParams();
+    const channelType = data?.channelType;
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      type:ChannelTypes.Text,
+      type:channelType || ChannelTypes.Text,
     },
   });
 
+  useEffect(() => {
+    if(channelType){
+      form.setValue("type", channelType);
+    }else{
+      form.setValue("type", ChannelTypes.Text);
+    }
+  }, [channelType,form])
+
   const isLoading = form.formState.isSubmitting;
   const router = useRouter();
+
+  
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     // Here we will create a server logic

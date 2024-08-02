@@ -10,6 +10,7 @@ import { ShieldCheck } from "lucide-react";
 import { Separator } from "../ui/separator";
 import ServerSection from "./server-section";
 import ServerChannel from "./server-channel";
+import ServerMember from "./server-member";
 
 interface ServerSideBarProps {
   serverId: string;
@@ -138,6 +139,46 @@ const ServerSideBar = async ({ serverId }: ServerSideBarProps) => {
             />
             {textChannels.map((channel)=>{
               return <ServerChannel key={channel.id} channel={channel} server={server} role={role}/>
+            })}
+            </div>
+          ) }
+          {audioChannels?.length > 0 && (
+            <div className="mb-2">
+            <ServerSection
+            sectionType="channels"
+            channelType={ChannelTypes.Audio}
+            role={role}
+            label="Audio Channels"
+            />
+            {audioChannels.map((channel)=>{
+              return <ServerChannel key={channel.id} channel={channel} server={server} role={role}/>
+            })}
+            </div>
+          ) }
+          {videoChannels?.length > 0 && (
+            <div className="mb-2">
+            <ServerSection
+            sectionType="channels"
+            channelType={ChannelTypes.Video}
+            role={role}
+            label="Video Channels"
+            />
+            {videoChannels.map((channel)=>{
+              return <ServerChannel key={channel.id} channel={channel} server={server} role={role}/>
+            })}
+            </div>
+          ) }
+          {/* rendering members */}
+          {members?.length > 0 && (
+            <div className="mb-2">
+            <ServerSection
+            sectionType="members"
+            role={role}
+            label="Members"
+            server={server}
+            />
+            {members.map((member)=>{
+              return <ServerMember key={member.id} member={member} server={server}  /> 
             })}
             </div>
           ) }
