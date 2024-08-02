@@ -3,7 +3,7 @@
 import { ServerWithMembersWithProfiles } from "@/types"
 import { Roles,ChannelTypes } from "@prisma/client"
 import { ActionToolTip } from "../ui/action-tooltip"
-import { Plus } from "lucide-react";
+import { Plus, Settings } from "lucide-react";
 import { useModal } from "@/hooks/use-model-store";
 
 interface ServerSectionProps{
@@ -19,6 +19,9 @@ const ServerSection = ({label,role,sectionType,channelType,server}:ServerSection
     const handleCreateChannel=()=>{
         onOpen.onOpen("createChannel",{server})
     }
+    const handleManageMembers=()=>{
+        onOpen.onOpen("members",{server})
+    }
   return (
     <div className="flex items-center justify-between py-2">
         <p className="text-xs uppercase font-semibold text-zinc-500 dar:text-zinc-400">
@@ -30,6 +33,14 @@ const ServerSection = ({label,role,sectionType,channelType,server}:ServerSection
                     <Plus className="h-4 w-4 "/>
                 </button>
             </ActionToolTip>
+        )}
+
+        {role == Roles.Admin && sectionType == "members" && (
+              <ActionToolTip label="Create Channel">
+              <button className="text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition " onClick={handleManageMembers}>
+                  <Settings className="h-4 w-4 "/>
+              </button>
+          </ActionToolTip>
         )}
     </div>
   )
