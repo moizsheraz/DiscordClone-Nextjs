@@ -6,6 +6,7 @@ import React from 'react'
 import { Button } from '../ui/button'
 import { cn } from '@/lib/utils'
 import { ActionToolTip } from '../ui/action-tooltip'
+import { useModal } from '@/hooks/use-model-store'
 
 interface ServerChannelProps {
 channel:Channel,
@@ -24,7 +25,13 @@ const ServerChannel = ({
 }:ServerChannelProps) => {
     const params = useParams();
     const router = useRouter();
+    const onOpen = useModal();
     const Icon = iconMap[channel.type];
+
+    const handleDeleteChannel=()=>{
+        onOpen.onOpen("DeleteServer", {server,channel });
+
+    }
 
   return (
   <Button variant={"destructive"} className={cn(" px-2 py-2 rounded-md flex justify-start  gap-x-2 w-full bg-transparent hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition mb-1")} >
@@ -35,8 +42,8 @@ const ServerChannel = ({
         <ActionToolTip label='Edit'>
     <Edit className=' group-hover:block w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition '/>
         </ActionToolTip>
-        <ActionToolTip label='Edit'>
-    <Trash className=' group-hover:block w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition '/>
+        <ActionToolTip label='Delete'>
+    <Trash className=' group-hover:block w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition '  onClick={handleDeleteChannel}/>
         </ActionToolTip>
     </div>
 )}
