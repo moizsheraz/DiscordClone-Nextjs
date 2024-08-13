@@ -38,6 +38,7 @@ const ServerHeader = ({
     const handleDeleteServer = () => {
         onOpen.onOpen("DeleteServer", { server });
     }
+  
     
     
   return (
