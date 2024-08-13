@@ -49,9 +49,9 @@ const formSchema = z.object({
 
 const EditChannelModal = () => {
     const {isOpen,onClose,type,data} =useModal();
-    const channel = data?.channel;
-    const server = data?.channel;
     const isModalOpen = isOpen && type === "editChannel";
+    const channel = data?.channel;
+    const server = data?.server;
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {

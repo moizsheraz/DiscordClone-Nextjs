@@ -10,7 +10,7 @@ import qs from "query-string";
 const DeleteChannelModal = () => {
     const router = useRouter();
     const { isOpen, onClose, onOpen, type, data } = useModal();
-    const isModalOpen = isOpen && type === "DeleteServer";
+    const isModalOpen = isOpen && type === "deleteChannel";
     const server = data?.server;
     const channel = data?.channel;
     const [isLoading, setIsLoading] = useState(false);

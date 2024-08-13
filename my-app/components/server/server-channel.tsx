@@ -29,15 +29,19 @@ const ServerChannel = ({
     const Icon = iconMap[channel.type];
 
     const handleDeleteChannel=()=>{
-        onOpen.onOpen("DeleteServer", {server,channel });
+        onOpen.onOpen("deleteChannel", {server,channel });
 
     }
     const handleEditChannel = () => {
         onOpen.onOpen("editChannel", { server,channel });
     }
 
+    const onClick=()=>{
+        router.push(`/servers/${params.serverId}/channels/${channel.id}`)
+    }
+
   return (
-  <Button variant={"destructive"} className={cn(" px-2 py-2 rounded-md flex justify-start  gap-x-2 w-full bg-transparent hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition mb-1")} >
+  <Button variant={"destructive"} className={cn(" px-2 py-2 rounded-md flex justify-start  gap-x-2 w-full bg-transparent hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition mb-1")} onClick={onClick} >
 <Icon className="flex-shrink-0 w-5 h-5 text-zinc-500" />
 <p className={cn(params.channelId === channel.id && "text-purple-700","text-zinc-500 hover:text-zinc-600 dark:text-zinc-400")}>{channel.name}</p>
 {channel.name !== "general" && role != Roles.Guest && (
