@@ -21,8 +21,11 @@ const ServerMember = ({member,server}:ServerMemberProps) => {
     const params = useParams();
     const router = useRouter();
     const icon = roleIconMap[member.role];
+    const handleOnClickServerMember=()=>{
+      router.push(`/servers/${params.serverId}/conversations/${member.id}`)
+    }
   return (
-    <Button variant={"destructive"} className={cn(" px-2 py-4 justify-start  rounded-md flex  gap-x-2 w-full bg-transparent hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition mb-1")} >
+    <Button variant={"destructive"} onClick={handleOnClickServerMember} className={cn(" px-2 py-4 justify-start  rounded-md flex  gap-x-2 w-full bg-transparent hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition mb-1")} >
    {icon}
     <p className={cn(params.memberId === member.id && "text-purple-700","text-zinc-500 gap-3 flex justify-center items-center hover:text-zinc-600 dark:text-zinc-400")}>
         <UserAvatar src={member.profile.imageUrl} className="h-8 w-8 md:h-8 md:w-8"  />
